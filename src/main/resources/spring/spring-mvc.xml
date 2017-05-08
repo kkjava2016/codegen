@@ -7,6 +7,9 @@
     
     <description>Spring MVC Configuration</description>
     
+    <!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:codegen.properties" />
+    
 	<!-- 使用Annotation自动注册Bean,只扫描@Controller -->
 	<context:component-scan base-package="com.kindo.codegen" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -36,6 +39,7 @@
 				        <property name="streamDriver">
 				            <bean class="com.thoughtworks.xstream.io.xml.StaxDriver"/>
 				        </property>
+				        <!--  
 				        <property name="annotatedClasses">
 				            <list>
 				                <value>com.thinkgem.jeesite.common.persistence.BaseEntity</value>
@@ -44,6 +48,7 @@
 				                <value>com.thinkgem.jeesite.common.supcan.treelist.cols.Group</value>
 				            </list>
 				        </property>
+				        -->
 				    </bean>
 		        </constructor-arg>
 		        <property name="supportedMediaTypes" value="application/xml"></property>
@@ -76,7 +81,7 @@
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31536000"/>
 	
 	<!-- 定义无Controller的path<->view直接映射 -->
-	<mvc:view-controller path="/" view-name="redirect:${web.view.index}"/>
+	<mvc:view-controller path="/" view-name="/login/login"/>
 	
 	<!-- 支持Shiro对Controller的方法级AOP安全控制 begin
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">

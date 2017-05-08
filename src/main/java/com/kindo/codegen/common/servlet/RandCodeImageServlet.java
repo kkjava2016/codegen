@@ -37,7 +37,6 @@ public class RandCodeImageServlet extends HttpServlet {
 	 * 定义图形大小
 	 */
 	private static final int height = 35;
-	// private Font mFont = new Font("Arial Black", Font.PLAIN, 15); //设置字体
 	/**
 	 * 干扰线的长度=1.414*lineWidth
 	 */
@@ -80,14 +79,9 @@ public class RandCodeImageServlet extends HttpServlet {
 		// 取随机产生的认证码(4位数字)
 		final String resultCode = exctractRandCode();
 		for (int i = 0; i < resultCode.length(); i++) {
-			// 将认证码显示到图象中,调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
-			// graphics.setColor(new Color(20 + random.nextInt(130), 20 + random
-			// .nextInt(130), 20 + random.nextInt(130)));
-
             // 设置字体颜色
 			graphics.setColor(Color.BLACK);
             // 设置字体样式
-//			graphics.setFont(new Font("Arial Black", Font.ITALIC, 18));
             graphics.setFont(new Font("Times New Roman", Font.BOLD, 24));
             // 设置字符，字符间距，上边距
 			graphics.drawString(String.valueOf(resultCode.charAt(i)), (23 * i) + 8, 26);
