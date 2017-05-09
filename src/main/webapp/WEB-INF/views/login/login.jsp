@@ -34,6 +34,46 @@
   <script src="plug-in/ace/js/respond.js"></script>
   <![endif]-->
 
+<style type="text/css">
+/*
+	loading layout
+*/
+#overlay {
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background-color:#111;
+	/*	opacity:0.1;
+	filter:alpha(opacity=10);*/
+	z-index:1000;
+	display: none;
+}
+#preloader {
+	background: #000000 url(images/preloader.gif) no-repeat 12px 10px;
+	font-size: 11px;
+	height: 40px;
+	left: 50%;
+	line-height: 20px;
+	margin: -20px 0 0 -45px;
+	padding: 10px;
+	position: fixed;
+	text-align: left;
+	text-indent: 36px;
+	top: 50%;
+	width: 130px;
+	z-index: 1209;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	color: #FFF;
+	text-shadow:none;
+	display: none;
+}
+</style>
 </head>
 <body class="login-layout light-login">
 <div class="main-container">
@@ -46,13 +86,13 @@
               <i class="ace-icon fa fa-leaf green"></i>
                CodeGen 演示系统
             </h1>
-            <!-- <h4 class="blue" id="id-company-text">www.jeecg.org</h4> -->
+            <!-- <h4 class="blue" id="id-company-text"></h4> -->
           </div>
           <div class="space-6"></div>
           <div class="position-relative">
             <div id="login-box" class="login-box visible widget-box no-border">
               <div class="widget-body">
-                <form id="loinForm" class="form-horizontal"  check="loginController.do?checkuser"  role="form" action="loginController.do?login"  method="post">
+                <form id="loinForm" class="form-horizontal"  role="form" action=""  method="post">
                 <div class="widget-main">
                  <div class="alert alert-warning alert-dismissible" role="alert" id="errMsgContiner">
 				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -78,7 +118,7 @@
                       <label class="block clearfix">
                         <div class="input-group">
                           <input type="text" style="width:150px" name="randCode" class="form-control" placeholder="请输入验证码"  id="randCode"/>
-                          <span class="input-group-addon" style="padding: 0px;"><img id="randCodeImage" src="servlet/randCodeImage"  /></span>
+                          <span class="input-group-addon" style="padding: 0px;"><img id="randCodeImage" src=""  /></span>
                         </div>
                       </label>
                       <div class="space"></div>
@@ -87,7 +127,7 @@
                           <input type="checkbox" class="ace" id="on_off"  name="remember" value="yes"/>
                           <span class="lbl">记住用户名</span>
                         </label>
-                        <button type="button" id="but_login"  onclick="checkUser()" class="width-35 pull-right btn btn-sm btn-primary">
+                        <button type="button" id="but_login"  class="width-35 pull-right btn btn-sm btn-primary">
                           <i class="ace-icon fa fa-key"></i>
                           <span class="bigger-110" >登录</span>
                         </button>
@@ -96,7 +136,7 @@
 
                 </div>
                 <div class="toolbar clearfix">
-                  <div style="float: right">
+                  <div style="float: right;width:30%">
                     <a href="#"  class="forgot-password-link">忘记密码?</a>
                   </div>
                 </div>
@@ -104,18 +144,18 @@
               </div>
             </div>
             <div class="center"><h4 class="blue" id="id-company-text">&copy; XXXX版权所有 v_1.0.0</h4></div>
-            <div class="navbar-fixed-top align-right">
+            <div id="toggleStyle" class="navbar-fixed-top align-right">
               <br />
               &nbsp;
-              <a id="btn-login-dark" class="blue" href="#" onclick="darkStyle()">Dark</a>
+              <a id="btn-login-dark" class="blue" href="#">Dark</a>
               &nbsp;
               <span class="blue">/</span>
               &nbsp;
-              <a id="btn-login-blur" class="blue" href="#" onclick="blurStyle()">Blur</a>
+              <a id="btn-login-blur" class="blue" href="#">Blur</a>
               &nbsp;
               <span class="blue">/</span>
               &nbsp;
-              <a id="btn-login-light" class="blue" href="#" onclick="lightStyle()">Light</a>
+              <a id="btn-login-light" class="blue" href="#">Light</a>
               &nbsp; &nbsp; &nbsp;
             </div>
               </div>
@@ -124,211 +164,137 @@
         </div>
       </div>
     </div>
-
-
-
 <script type="text/javascript" src="plug-in/jquery/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="plug-in/jquery/jquery.cookie.js"></script>
-<script type="text/javascript" src="plug-in/login/js/login.js"></script>
 <script type="text/javascript">
-	$(function(){
-		optErrMsg();
-	});
-	$("#errMsgContiner").hide();
-	function optErrMsg(){
+//登录操作
+var LoginPage = {
+	/*登录验证rl */
+	checkUrl : 'loginController.do?checkuser',
+	/*登录成功后跳转路径*/
+	actionUrl : 'loginController.do?login',
+	/*验证码输出url*/
+	randCodeImgUrl : 'servlet/randCodeImage',
+	/*验证必输项*/
+	validForm : function(){
+		if($.trim($("#userName").val()).length==0){
+			LoginPage.showError("请输入用户名!")
+	      	return false;
+	    }
+	    if($.trim($("#password").val()).length==0){
+	    	LoginPage.showError("请输入密码!");
+	      	return false;
+	    }
+	    if($.trim($("#randCode").val()).length==0){
+	    	LoginPage.showError("请输入验证码!");
+	      	return false;
+	    }
+	    return true;
+	},
+	/*实际登录操作*/
+	login : function(){
+		if(!LoginPage.validForm()) {
+			//验证不通过，直接退出
+			return;
+		}
+		LoginPage.loading();
+		
+		var actionurl=$('form').attr('action');//提交路径
+	    var checkurl=$('form').attr('check');//验证路径
+	    var formData = new Object();
+	    var data=$(":input").each(function() {
+	      formData[this.name] =$("#"+this.name ).val();
+	    });
+
+	    $.ajax({
+		     async : false,
+		     cache : false,
+		     type : 'POST',
+		     url : LoginPage.checkUrl,// 请求的action路径
+		     data : formData,
+		     error : function() {// 请求失败处理函数
+		    	 LoginPage.unloading();
+		     },
+		     success : function(d) {
+		    	 LoginPage.unloading();
+			      if (d.success) {
+			          window.location.href = LoginPage.actionUrl;
+			      } else {
+			    	  LoginPage.showError(d.msg);
+			      }
+	    	}
+      });
+	},
+	/*登录页样式切换*/
+	toggleStyle : function(styleType) {
+		if("Dark" == styleType) {
+		    $('body').attr('class', 'login-layout');
+		    $('#id-text2').attr('class', 'red');
+		    $('#id-company-text').attr('class', 'blue');
+		}
+		else if("Light" == styleType) {
+		    $('body').attr('class', 'login-layout light-login');
+		    $('#id-text2').attr('class', 'grey');
+		    $('#id-company-text').attr('class', 'blue');
+		}
+		else {
+		    $('body').attr('class', 'login-layout blur-login');
+		    $('#id-text2').attr('class', 'white');
+		    $('#id-company-text').attr('class', 'light-blue');
+		}
+		return false;
+	},
+	/*显示错误信息*/
+	showError : function(msg) {
+		$("#errMsgContiner").show();
+	    $("#showErrMsg").html(msg);
+	    window.setTimeout(LoginPage.hideError,3000); 
+	},
+	/*隐藏错误显示区域*/
+	hideError : function() {
 		$("#showErrMsg").html('');
 		$("#errMsgContiner").hide();
+	},
+	
+	/*加载框显示*/
+	loading : function(){
+		$('body').append('<div id="overlay"></div><div id="preloader">核实中...</div>');
+		$('#overlay').css('opacity', 0.1).fadeIn(function() {
+			$('#preloader').fadeIn();
+		});
+		return false;
+	},
+	unloading : function() {
+		$('#preloader').fadeOut('fast', function() {
+			$('#overlay').fadeOut();
+		});
+	},
+	/*初始化*/
+	init : function() {
+		this.hideError();
+		$('#randCodeImage').attr("src", this.randCodeImgUrl);
+		//登录按钮点击事件注册
+		$("#but_login").click(this.login);
+		//
+		$(document).keydown(function(e) {
+			if(e.keyCode == 13)
+				$("#but_login").click();
+		});
+		//验证码
+		$('#randCodeImage').click(function(){
+			var date = new Date();
+		    var img = document.getElementById("randCodeImage");
+		    img.src= LoginPage.randCodeImgUrl + '?a=' + date.getTime();
+		});
+		//样式切换
+		$("#toggleStyle a").click(function(){
+			var styleType = $(this).text();
+			LoginPage.toggleStyle(styleType);
+		});
 	}
-
-   //输入验证码，回车登录
-  $(document).keydown(function(e){
-  	if(e.keyCode == 13) {
-  		$("#but_login").click();
-  	}
-  });
-
-  //验证用户信息
-  function checkUser(){
-    if(!validForm()){
-      return false;
-    }
-    newLogin();
-  }
-  //表单验证
-  function validForm(){
-    if($.trim($("#userName").val()).length==0){
-      showErrorMsg("请输入用户名");
-      return false;
-    }
-
-    if($.trim($("#password").val()).length==0){
-      showErrorMsg("请输入密码");
-      return false;
-    }
-
-    if($.trim($("#randCode").val()).length==0){
-      showErrorMsg("请输入验证码");
-      return false;
-    }
-    return true;
-  }
-
-  //登录处理函数
-  function newLogin(orgId) {
-    setCookie();
-    var actionurl=$('form').attr('action');//提交路径
-    var checkurl=$('form').attr('check');//验证路径
-    var formData = new Object();
-    var data=$(":input").each(function() {
-      formData[this.name] =$("#"+this.name ).val();
-    });
-    formData['orgId'] = orgId ? orgId : "";
-    //语言
-    formData['langCode']=$("#langCode").val();
-    formData['langCode'] = $("#langCode option:selected").val();
-    $.ajax({
-      async : false,
-      cache : false,
-      type : 'POST',
-      url : checkurl,// 请求的action路径
-      data : formData,
-      error : function() {// 请求失败处理函数
-      },
-      success : function(data) {
-        var d = $.parseJSON(data);
-        if (d.success) {
-          if (d.attributes.orgNum > 1) {
-          	  //用户拥有多个部门，需选择部门进行登录
-        	  var title, okButton;
-              if($("#langCode").val() == 'en') {
-                title = "Please select Org";
-                okButton = "Ok";
-              } else {
-                title = "请选择组织机构";
-                okButton = "确定";
-              }
-            $.dialog({
-              id: 'LHG1976D',
-              title: title,
-              max: false,
-              min: false,
-              drag: false,
-              resize: false,
-              content: 'url:userController.do?userOrgSelect&userId=' + d.attributes.user.id,
-              lock:true,
-              button : [ {
-                name : okButton,
-                focus : true,
-                callback : function() {
-                  iframe = this.iframe.contentWindow;
-                  var orgId = $('#orgId', iframe.document).val();
-                  formData['orgId'] = orgId ? orgId : "";
-                  $.ajax({
-              		async : false,
-              		cache : false,
-              		type : 'POST',
-              		url : 'loginController.do?changeDefaultOrg',// 请求的action路径
-              		data : formData,
-              		error : function() {// 请求失败处理函数
-              		},
-              		success : function(data) {
-              			window.location.href = actionurl;
-              		}
-                  });
-                  this.close();
-                  return false;
-                }
-              }],
-              close: function(){
-                setTimeout("window.location.href='"+actionurl+"'", 10);
-              }
-            });
-          } else {
-            window.location.href = actionurl;
-          }
-       } else {
-			showErrorMsg(d.msg);
-        }
-      }
-    });
-  }
-  //登录提示消息显示
-  function showErrorMsg(msg){
-    $("#errMsgContiner").show();
-    $("#showErrMsg").html(msg);
-    window.setTimeout(optErrMsg,3000); 
-  }
-  /**
-   * 刷新验证码
-   */
-$('#randCodeImage').click(function(){
-    reloadRandCodeImage();
+};
+$(function(){
+	LoginPage.init();
 });
-function reloadRandCodeImage() {
-    var date = new Date();
-    var img = document.getElementById("randCodeImage");
-    img.src='servlet/randCodeImage?a=' + date.getTime();
-}
-
-  function darkStyle(){
-    $('body').attr('class', 'login-layout');
-    $('#id-text2').attr('class', 'red');
-    $('#id-company-text').attr('class', 'blue');
-    e.preventDefault();
-  }
-  function lightStyle(){
-    $('body').attr('class', 'login-layout light-login');
-    $('#id-text2').attr('class', 'grey');
-    $('#id-company-text').attr('class', 'blue');
-
-    e.preventDefault();
-  }
-  function blurStyle(){
-    $('body').attr('class', 'login-layout blur-login');
-    $('#id-text2').attr('class', 'white');
-    $('#id-company-text').attr('class', 'light-blue');
-
-    e.preventDefault();
-  }
-//设置cookie
-  function setCookie()
-  {
-  	if ($('#on_off').val() == '1') {
-  		$("input[iscookie='true']").each(function() {
-  			$.cookie(this.name, $("#"+this.name).val(), "/",24);
-  			$.cookie("COOKIE_NAME","true", "/",24);
-  		});
-  	} else {
-  		$("input[iscookie='true']").each(function() {
-  			$.cookie(this.name,null);
-  			$.cookie("COOKIE_NAME",null);
-  		});
-  	}
-  }
-  //读取cookie
-  function getCookie()
-  {
-  	var COOKIE_NAME=$.cookie("COOKIE_NAME");
-  	if (COOKIE_NAME !=null) {
-  		$("input[iscookie='true']").each(function() {
-  			$($("#"+this.name).val( $.cookie(this.name)));
-              if("admin" == $.cookie(this.name)) {
-                  $("#randCode").focus();
-              } else {
-                  $("#password").val("");
-                  $("#password").focus();
-              }
-          });
-  		$("#on_off").attr("checked", true);
-  		$("#on_off").val("1");
-  	} 
-  	else
-  	{
-  		$("#on_off").attr("checked", false);
-  		$("#on_off").val("0");
-        $("#randCode").focus();
-  	}
-  }
 </script>
 </body>
 </html>

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kindo.codegen.common.config.Globals;
+
 /**
  * 随机生成验证图片
  * 
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RandCodeImageServlet extends HttpServlet {
     private static final long serialVersionUID = -1257947018545327308L;
-    private static final String SESSION_KEY_OF_RAND_CODE = "randCode"; // todo 要统一常量
     /**
 	 * 
 	 */
@@ -88,7 +89,7 @@ public class RandCodeImageServlet extends HttpServlet {
 		}
 
 		// 将认证码存入SESSION
-		request.getSession().setAttribute(SESSION_KEY_OF_RAND_CODE, resultCode);
+		request.getSession().setAttribute(Globals.SESSION_RAND_CODE, resultCode);
 		// 图象生效
 		graphics.dispose();
 
