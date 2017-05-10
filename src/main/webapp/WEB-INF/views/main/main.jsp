@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,30 +38,146 @@
                         <span><img alt="image" class="img-circle" src="plug-in/login/images/jeecg-aceplus.png" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                                <span class="block m-t-xs"><strong class="font-bold">${userName }</strong></span>
-                                <span class="text-muted text-xs block">${roleName }<b class="caret"></b></span>
+                                <span class="block m-t-xs"><strong class="font-bold">admin</strong></span>
+                                <span class="text-muted text-xs block">管理员<b class="caret"></b></span>
                                 </span>
                         </a> 
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
-                                <a href="javascript:add('<t:mutiLang langKey="common.change.password"/>','userController.do?changepassword','',550,200)">
-                                    <t:mutiLang langKey="common.change.password"/>
-                                </a>
+                                <a href="javascript:add('修改密码','userController.do?changepassword','',550,200)">修改密码</a>
                             </li>
-                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.profile"/>','userController.do?userinfo')"><t:mutiLang langKey="common.profile"/></a></li>
-                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?getSysInfos')"><t:mutiLang langKey="common.ssms.getSysInfos"/></a></li>
-                            <li><a href="javascript:add('<t:mutiLang langKey="common.change.style"/>','userController.do?changestyle','',550,250)"><t:mutiLang langKey="common.my.style"/></a></li>
-                            <li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
-                            <li><a href="http://yun.jeecg.org" target="_blank">云应用中心</li>
+                            <li><a href="javascript:openwindow('个人信息','userController.do?userinfo')">个人信息</a></li>
+                            <li><a href="javascript:openwindow('系统消息','tSSmsController.do?getSysInfos')">系统消息</a></li>
+                            <li><a href="javascript:add('首页风格','userController.do?changestyle','',550,250)">首页风格</a></li>
+                            <li><a href="javascript:clearLocalstorage()">清除缓存</a></li>
                             <li class="divider"></li>
                             <li><a href="javascript:logout()">注销</a></li>
                         </ul>
                     </div>
-                    <div class="logo-element">JEECG
-                    </div>
+                    <div class="logo-element">CodeGen</div>
                 </li>
 
-                <t:menu style="hplus" menuFun="${menuMap}"></t:menu>
+                <!-- TODO 动态菜单加载  -->
+		<li><a href="#" class=""><i class="fa icon-download-alt"></i><span class="menu-text">插件模块</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="p3/wxActInvite.do?list" data-index="0"><span class="menu-text">普通列表</span></a></li>
+		    <li> <a class="J_menuItem" href="p3/auth.do?list" data-index="1"><span class="menu-text">树形列表</span></a></li>
+		    <li> <a class="J_menuItem" href="https://www.baidu.com" data-index="2"><span class="menu-text">百度</span></a></li>
+		    <li> <a class="J_menuItem" href="mail/p3MailJformInnerMail.do?toSendMail" data-index="3"><span class="menu-text">我的邮箱</span></a></li>
+		   </ul>
+		</li> 
+		<li><a href="#" class=""><i class="fa fa-pie-chart"></i><span class="menu-text">移动报表</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=LineBasic2D" data-index="4"><span class="menu-text">折线图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Area2D" data-index="5"><span class="menu-text">面积图 </span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Bar2D" data-index="6"><span class="menu-text">条状图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Column3D" data-index="7"><span class="menu-text">3D柱状图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Column2D" data-index="8"><span class="menu-text">2D柱状图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Pie2D" data-index="9"><span class="menu-text">2D饼图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log&amp;gtype=Pie3D" data-index="10"><span class="menu-text">3D饼图</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphController.do?design&amp;id=t_s_log" data-index="11"><span class="menu-text">综合报表</span></a></li>
+		   </ul>
+		 </li> 
+		 <li><a href="#" class=""><i class="fa fa-bar-chart-o"></i><span class="menu-text">统计报表</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="logController.do?statisticTabs&amp;isIframe" data-index="12"><span class="menu-text">用户分析</span></a></li>
+		    <li> <a class="J_menuItem" href="reportDemoController.do?studentStatisticTabs&amp;isIframe" data-index="13"><span class="menu-text">综合报表</span></a></li>
+		    <li> <a class="J_menuItem" href="cgReportController.do?list&amp;id=user_msg" data-index="14"><span class="menu-text">数据报表</span></a></li>
+		    <li> <a class="J_menuItem" href="graphReportController.do?list&amp;isIframe&amp;id=yhcztj" data-index="15"><span class="menu-text">图形报表</span></a></li>
+		   </ul>
+		  </li> 
+		  <li><a href="#" class=""><i class="fa fa-cloud"></i><span class="menu-text">在线开发</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="cgFormHeadController.do?cgFormHeadList" data-index="16"><span class="menu-text">Online表单开发</span></a></li>
+		    <li> <a class="J_menuItem" href="cgformTemplateController.do?cgformTemplate" data-index="17"><span class="menu-text">Online表单样式</span></a></li>
+		    <li> <a class="J_menuItem" href="cgreportConfigHeadController.do?cgreportConfigHead" data-index="18"><span class="menu-text">Online报表配置</span></a></li>
+		    <li> <a class="J_menuItem" href="jformGraphreportHeadController.do?jformGraphreportHead" data-index="19"><span class="menu-text">Online图表配置</span></a></li>
+		    <li> <a class="J_menuItem" href="cgDynamGraphConfigHeadController.do?cgDynamGraphConfigHead" data-index="20"><span class="menu-text">Online移动图表</span></a></li>
+		    <li> <a class="J_menuItem" href="autoFormController.do?autoForm" data-index="21"><span class="menu-text">自定义表单列表</span></a></li>
+		    <li> <a class="J_menuItem" href="autoFormStyleController.do?autoFormStyle" data-index="22"><span class="menu-text">自定义表单模板</span></a></li>
+		   </ul>
+		  </li> 
+		  <li><a href="#" class=""><i class="fa fa-headphones"></i><span class="menu-text">系统监控</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="dataSourceController.do?goDruid&amp;isIframe" data-index="23"><span class="menu-text">数据监控</span></a></li>
+		    <li> <a class="J_menuItem" href="logController.do?log" data-index="24"><span class="menu-text">系统日志</span></a></li>
+		    <li> <a class="J_menuItem" href="timeTaskController.do?timeTask" data-index="25"><span class="menu-text">定时任务</span></a></li>
+		    <li> <a class="J_menuItem" href="systemController.do?dataLogList" data-index="26"><span class="menu-text">数据日志</span></a></li>
+		   </ul>
+		  </li> 
+		  <li><a href="#" class=""><i class="fa fa-commenting"></i><span class="menu-text">消息中间件</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="tSSmsController.do?tSSms" data-index="27"><span class="menu-text">消息中心</span></a></li>
+		    <li> <a class="J_menuItem" href="tSSmsSqlController.do?tSSmsSql" data-index="28"><span class="menu-text">业务SQL</span></a></li>
+		    <li> <a class="J_menuItem" href="tSSmsTemplateController.do?tSSmsTemplate" data-index="29"><span class="menu-text">消息模板</span></a></li>
+		    <li> <a class="J_menuItem" href="tSSmsTemplateSqlController.do?tSSmsTemplateSql" data-index="30"><span class="menu-text">业务配置</span></a></li>
+		   </ul>
+		  </li> 
+		  <li class="active"><a href="#" class=""><i class="fa fa-home"></i><span class="menu-text">系统管理</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse in" aria-expanded="true">
+		    <li> <a class="J_menuItem" href="userController.do?user" data-index="31"><span class="menu-text">用户管理</span></a></li>
+		    <li> <a class="J_menuItem" href="roleController.do?role" data-index="32"><span class="menu-text">角色管理</span></a></li>
+		    <li> <a class="J_menuItem" href="departController.do?depart" data-index="33"><span class="menu-text">组织机构</span></a></li>
+		    <li> <a class="J_menuItem" href="functionController.do?function&amp;type=0" data-index="34"><span class="menu-text">菜单管理</span></a></li>
+		    <li> <a class="J_menuItem" href="functionController.do?function&amp;type=1" data-index="35"><span class="menu-text">数据权限</span></a></li>
+		    <li> <a class="J_menuItem" href="systemController.do?typeGroupList" data-index="36"><span class="menu-text">数据字典</span></a></li>
+		    <li> <a class="J_menuItem" href="noticeController.do?tSNotice" data-index="37"><span class="menu-text">系统公告</span></a></li>
+		    <li> <a class="J_menuItem" href="iconController.do?icon" data-index="38"><span class="menu-text">系统图标</span></a></li>
+		    <li> <a class="J_menuItem" href="mutiLangController.do?mutiLang" data-index="39"><span class="menu-text">国际化语言</span></a></li>
+		    <li> <a class="J_menuItem" href="dynamicDataSourceController.do?dbSource" data-index="40"><span class="menu-text">多数据源管理</span></a></li>
+		   </ul>
+		  </li> 
+		  <li><a href="#" class=""><i class="fa fa-twitch"></i><span class="menu-text">常用示例</span><span class="fa arrow"></span></a>
+		   <ul class="nav nav-second-level collapse">
+		    <li> <a class="J_menuItem" href="" data-index="41"><i class="fa fa-tags"></i><span class="menu-text">UI标签</span><span class="fa arrow"></span></a>
+		     <ul class="nav nav-third-level collapse">
+		      <li> <a class="J_menuItem" href="demoController.do?formTabs" data-index="42"><span class="menu-text">表单验证</span></a></li>
+		      <li> <a class="J_menuItem" href="userNoPageController.do?user" data-index="43"><span class="menu-text">无分页列表</span></a></li>
+		      <li> <a class="J_menuItem" href="demoController.do?dictSelect" data-index="44"><span class="menu-text">字典标签</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?jeecgDemo2&amp;sex=1" data-index="45"><span class="menu-text">datagrid查询默认条件</span></a></li>
+		      <li> <a class="J_menuItem" href="userController.do?userDemo" data-index="46"><span class="menu-text">datagrid自定义查询1</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?customDatagridList" data-index="47"><span class="menu-text">datagrid自定义查询2</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgEasyUIController.do?jeecgEasyUI" data-index="48"><span class="menu-text">单表例子（无tag）</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgOrderMainNoTagController.do?jeecgOrderMainNoTag" data-index="49"><span class="menu-text">一对多例子（无tag）</span></a></li>
+		     </ul>
+		    </li>
+		    <li> <a class="J_menuItem" href="" data-index="50"><i class="fa fa-list"></i><span class="menu-text">表单布局</span><span class="fa arrow"></span></a>
+		     <ul class="nav nav-third-level collapse">
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?jeecgDemo" data-index="51"><span class="menu-text">综合Demo</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgNoteController.do?jeecgNote" data-index="52"><span class="menu-text">表单模型</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgOrderMainController.do?jeecgOrderMain" data-index="53"><span class="menu-text">一对多模型</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgOrderMainPTabController.do?jeecgOrderMain" data-index="54"><span class="menu-text">一对多模型（并列TAB）</span></a></li>
+		      <li> <a class="J_menuItem" href="demoController.do?demoList" data-index="55"><span class="menu-text">表单弹出风格</span></a></li>
+		      <li> <a class="J_menuItem" href="demoController.do?demoIframe" data-index="56"><span class="menu-text">左右布局</span></a></li>
+		      <li> <a class="J_menuItem" href="tFinanceController.do?tFinance" data-index="57"><span class="menu-text">多附件管理</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgMatterBomController.do?goList" data-index="58"><span class="menu-text">树列表</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?goDemo&amp;demoPage=rowEditDemo" data-index="59"><span class="menu-text">行编辑demo</span></a></li>
+		      <li> <a class="J_menuItem" href="demoController.do?demoLayoutList" data-index="60"><span class="menu-text">表单特殊布局</span></a></li>
+		      <li> <a class="J_menuItem" href="goodsController.do?list" data-index="61"><span class="menu-text">商品管理(特殊布局)</span></a></li>
+		     </ul>
+		    </li>
+		    <li> <a class="J_menuItem" href="" data-index="62"><i class="fa fa-random"></i><span class="menu-text">常用控件</span><span class="fa arrow"></span></a>
+		     <ul class="nav nav-third-level collapse">
+		      <li> <a class="J_menuItem" href="courseController.do?course" data-index="63"><span class="menu-text">Excel导入导出</span></a></li>
+		      <li> <a class="J_menuItem" href="fileUploadController.do?fileUploadSample&amp;isIframe" data-index="64"><span class="menu-text">Jquery上传示例</span></a></li>
+		      <li> <a class="J_menuItem" href="commonController.do?listTurn&amp;turn=system/document/filesList" data-index="65"><span class="menu-text">上传下载</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?ckeditor&amp;isIframe" data-index="66"><span class="menu-text">HTML编辑器</span></a></li>
+		      <li> <a class="J_menuItem" href="webOfficeController.do?webOffice" data-index="67"><span class="menu-text">在线word(IE)</span></a></li>
+		      <li> <a class="J_menuItem" href="webOfficeController.do?webOfficeSample&amp;isIframe" data-index="68"><span class="menu-text">WebOffice官方例子</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoController.do?ztreelist" data-index="69"><span class="menu-text">下拉菜单树</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgDemoCkfinderController.do?jeecgDemoCkfinder" data-index="70"><span class="menu-text">ckfinder例子</span></a></li>
+		      <li> <a class="J_menuItem" href="demoController.do?eSign" data-index="71"><span class="menu-text">电子签章</span></a></li>
+		     </ul>
+		    </li>
+		    <li> <a class="J_menuItem" href="" data-index="72"><i class="fa fa-database"></i><span class="menu-text">数据库相关</span><span class="fa arrow"></span></a>
+		     <ul class="nav nav-third-level collapse">
+		      <li> <a class="J_menuItem" href="jeecgMinidaoController.do?jeecgMinidao" data-index="73"><span class="menu-text">minidao例子</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgJdbcController.do?jeecgJdbc" data-index="74"><span class="menu-text">jdbc示例</span></a></li>
+		      <li> <a class="J_menuItem" href="transactionTestController.do?showPage" data-index="75"><span class="menu-text">事务回滚</span></a></li>
+		      <li> <a class="J_menuItem" href="jeecgProcedureController.do?procedure" data-index="76"><span class="menu-text">存储过程实例</span></a></li>
+		     </ul>
+		    </li>
+		   </ul></li>
 
             </ul>
         </div>
@@ -75,14 +190,13 @@
                 <div class="navbar-header" style="height: 60px;"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
                         <div class="form-group">
-                            <input type="text" placeholder="欢迎使用Jeecg快速开发平台 …" class="form-control" name="top-search" id="top-search">
+                            <input type="text" placeholder="欢迎使用CodeGen快速开发平台 …" class="form-control" name="top-search" id="top-search">
                         </div>
                     </form>
                 </div>
                 
-                
                 <ul class="nav navbar-top-links navbar-right">
-                   <%--  <li class="dropdown">
+                   <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-envelope"></i> <span class="label label-warning">0</span>
                         </a>
@@ -128,27 +242,21 @@
                                 </div>
                             </li>
                         </ul>
-                    </li> --%>
+                    </li>
                     
                     <li class="dropdown">
                     	<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <span ><strong class="font-bold">${userName }</strong></span>
-                                <span >${roleName }<b class="caret"></b></span>
+                                <span><strong class="font-bold">admin</strong></span>
+                                <span>管理员<b class="caret"></b></span>
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li>
-                                <a href="javascript:add('<t:mutiLang langKey="common.change.password"/>','userController.do?changepassword','',550,200)">
-                                    <t:mutiLang langKey="common.change.password"/>
-                                </a>
+                                <a href="javascript:add('修改密码','userController.do?changepassword','',550,200)">修改密码</a>
                             </li>
-                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.profile"/>','userController.do?userinfo')"><t:mutiLang langKey="common.profile"/></a></li>
-                            <li><a href="javascript:openwindow('<t:mutiLang langKey="common.ssms.getSysInfos"/>','tSSmsController.do?getSysInfos')"><t:mutiLang langKey="common.ssms.getSysInfos"/></a></li>
-                            <li><a href="javascript:add('<t:mutiLang langKey="common.change.style"/>','userController.do?changestyle','',550,250)"><t:mutiLang langKey="common.my.style"/></a></li>
-                            <li><a href="javascript:clearLocalstorage()"><t:mutiLang langKey="common.clear.localstorage"/></a></li>
-                            <li><a href="javascript:toJeecgYun()">云应用中心</a></li>
-                            <!-- <li><a href="http://yun.jeecg.org" target="_blank">云应用中心</li> -->
-                           <!--  <li class="divider"></li>
-                            <li><a href="javascript:logout()">注销</a></li> -->
+                            <li><a href="javascript:openwindow('个人信息','userController.do?userinfo')">个人信息</a></li>
+                            <li><a href="javascript:openwindow('系统消息','tSSmsController.do?getSysInfos')">系统消息</a></li>
+                            <li><a href="javascript:add('首页风格','userController.do?changestyle','',550,250)">首页风格</a></li>
+                            <li><a href="javascript:clearLocalstorage()">清除缓存</a></li>
                         </ul>
                     </li>
                     
@@ -165,38 +273,33 @@
             </nav>
         </div>
         <div class="row content-tabs">
-            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
-            </button>
+            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
                     <a href="javascript:;" class="active J_menuTab" data-id="">首页</a>
                 </div>
-            <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
-            </button>
-            <div class="btn-group roll-nav roll-right">
-                <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
-
-                </button>
-                <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                    <li class="J_tabShowActive"><a>定位当前选项卡</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
-                    </li>
-                    <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- 
-            <a href="javascript:logout()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
-             -->
+            	<button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
+	            <div class="btn-group roll-nav roll-right">
+	                <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
+	
+	                </button>
+	                <ul role="menu" class="dropdown-menu dropdown-menu-right">
+	                    <li class="J_tabShowActive"><a>定位当前选项卡</a>
+	                    </li>
+	                    <li class="divider"></li>
+	                    <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+	                    </li>
+	                    <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+	                    </li>
+	                </ul>
+	            </div>
+            </nav>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="loginController.do?hplushome" frameborder="0" data-id="loginController.do?hplushome" seamless></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="loginController.do?home" frameborder="0" data-id="loginController.do?home" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; <t:mutiLang langKey="system.version.number"/> <a href="http://www.jeecg.org/" target="_blank">jeecg</a>
+            <div class="pull-right">&copy; 1.0.0 <a href="https://github.com/janzolau1987/codegen" target="_blank">CodeGen</a>
             </div>
         </div>
     </div>
@@ -204,22 +307,10 @@
     <!--右侧边栏开始-->
     <div id="right-sidebar">
         <div class="sidebar-container">
-
             <ul class="nav nav-tabs navs-3">
-
-                <li class="active">
-                    <a data-toggle="tab" href="#tab-1">
-                        <i class="fa fa-gear"></i> 主题
-                    </a>
-                </li>
-               <li class=""><a data-toggle="tab" href="#tab-2">
-                   <i class="fa fa-comments-o" aria-hidden="true"></i>通知
-                </a>
-                </li>
-                <li><a data-toggle="tab" href="#tab-3">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>公告
-                </a>
-                </li>
+                <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-gear"></i> 主题</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-comments-o" aria-hidden="true"></i>通知</a></li>
+                <li><a data-toggle="tab" href="#tab-3"><i class="fa fa-info-circle" aria-hidden="true"></i>公告</a></li>
             </ul>
 
             <div class="tab-content">
@@ -244,7 +335,6 @@
                         </div>
                         <div class="setings-item">
                             <span>固定顶部</span>
-
                             <div class="switch">
                                 <div class="onoffswitch">
                                     <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
@@ -256,10 +346,7 @@
                             </div>
                         </div>
                         <div class="setings-item">
-                                <span>
-                        固定宽度
-                    </span>
-
+                            <span>固定宽度</span>
                             <div class="switch">
                                 <div class="onoffswitch">
                                     <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
@@ -272,25 +359,13 @@
                         </div>
                         <div class="title">皮肤选择</div>
                         <div class="setings-item default-skin nb">
-                                <span class="skin-name ">
-                         <a href="#" class="s-skin-0">
-                             默认皮肤
-                         </a>
-                    </span>
+                                <span class="skin-name "><a href="#" class="s-skin-0">默认皮肤</a></span>
                         </div>
                         <div class="setings-item blue-skin nb">
-                                <span class="skin-name ">
-                        <a href="#" class="s-skin-1">
-                            蓝色主题
-                        </a>
-                    </span>
+                                <span class="skin-name "><a href="#" class="s-skin-1">蓝色主题</a></span>
                         </div>
                         <div class="setings-item yellow-skin nb">
-                                <span class="skin-name ">
-                        <a href="#" class="s-skin-3">
-                            黄色/紫色主题
-                        </a>
-                    </span>
+                                <span class="skin-name "><a href="#" class="s-skin-3">黄色/紫色主题</a></span>
                         </div>
                     </div>
                 </div>
@@ -304,27 +379,20 @@
                         </li>
 
                         <li>
-                            <a href="javascript:goAllMessage();" id="messageFooter">
-                                查看全部
-                                <i class="icon-arrow-right"></i>
-                            </a>
+                            <a href="javascript:goAllMessage();" id="messageFooter"> 查看全部<i class="icon-arrow-right"></i></a>
                         </li>
                     </ul>
                 </div>
                 <div id="tab-3" class="tab-pane">
                     <div class="sidebar-title">
                         <h3> <i class="fa fa-cube"></i> 最新公告<small id="noticeCount"><i class="fa fa-tim"></i> 您当前有0个公告</small></h3>
-
                     </div>
                     <ul class="sidebar-list">
                         <li id="noticeContent">
 
                         </li>
                         <li>
-                            <a href="javascript:goAllNotice();" id="noticeFooter">
-                                查看所有公告
-                                <i class="icon-arrow-right"></i>
-                            </a>
+                            <a href="javascript:goAllNotice();" id="noticeFooter">查看所有公告<i class="icon-arrow-right"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -333,99 +401,6 @@
         </div>
     </div>
     <!--右侧边栏结束-->
-    <!--mini聊天窗口开始-->
-    <%--<div class="small-chat-box fadeInRight animated">
-
-        <div class="heading" draggable="true">
-            <small class="chat-date pull-right">
-                2015.9.1
-            </small> 与 Beau-zihan 聊天中
-        </div>
-
-        <div class="content">
-
-            <div class="left">
-                <div class="author-name">
-                    Beau-zihan <small class="chat-date">
-                    10:02
-                </small>
-                </div>
-                <div class="chat-message active">
-                    你好
-                </div>
-
-            </div>
-            <div class="right">
-                <div class="author-name">
-                    游客
-                    <small class="chat-date">
-                        11:24
-                    </small>
-                </div>
-                <div class="chat-message">
-                    你好，请问H+有帮助文档吗？
-                </div>
-            </div>
-            <div class="left">
-                <div class="author-name">
-                    Beau-zihan
-                    <small class="chat-date">
-                        08:45
-                    </small>
-                </div>
-                <div class="chat-message active">
-                    有，购买的H+源码包中有帮助文档，位于docs文件夹下
-                </div>
-            </div>
-            <div class="right">
-                <div class="author-name">
-                    游客
-                    <small class="chat-date">
-                        11:24
-                    </small>
-                </div>
-                <div class="chat-message">
-                    那除了帮助文档还提供什么样的服务？
-                </div>
-            </div>
-            <div class="left">
-                <div class="author-name">
-                    Beau-zihan
-                    <small class="chat-date">
-                        08:45
-                    </small>
-                </div>
-                <div class="chat-message active">
-                    1.所有源码(未压缩、带注释版本)；
-                    <br> 2.说明文档；
-                    <br> 3.终身免费升级服务；
-                    <br> 4.必要的技术支持；
-                    <br> 5.付费二次开发服务；
-                    <br> 6.授权许可；
-                    <br> ……
-                    <br>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="form-chat">
-            <div class="input-group input-group-sm">
-                <input type="text" class="form-control"> <span class="input-group-btn"> <button
-                    class="btn btn-primary" type="button">发送
-            </button> </span>
-            </div>
-        </div>
-
-    </div>--%>
-    <%--<div id="small-chat">
-        <span class="badge badge-warning pull-right">5</span>
-        <a class="open-small-chat">
-            <i class="fa fa-comments"></i>
-
-        </a>
-    </div>--%>
-    <!--mini聊天窗口结束-->
 </div>
 
 <!-- 全局js -->
@@ -440,6 +415,8 @@
 <!--右键菜单-->
 <script type="text/javascript" src="plug-in/hplus/jquery-smartMenu.js"></script>
 <script type="text/javascript" src="plug-in/hplus/contabs.js"></script>
+<script type="text/javascript" src="plug-in/tools/curdtools.js"></script>
+<script type="text/javascript" src="plug-in/tools/easyuiextend.js"></script>
 <!-- 第三方插件 -->
 <script src="plug-in/hplus/js/plugins/pace/pace.min.js"></script>
 <!-- Sweet alert -->
@@ -448,32 +425,8 @@
 
 <!-- 弹出TAB -->
 <script type="text/javascript" src="plug-in/hplus/hplus-tab.js"></script>
-<!-- 在线聊天 -->
-<script>
+<script type="text/javascript">
     function logout(){
-        /*bootbox.confirm("<t:mutiLang langKey="common.exit.confirm"/>", function(result) {
-            if(result)
-                location.href="loginController.do?logout";
-        });*/
-        /*swal({
-            title: "您确定要注销吗？",
-            text: "注销后需要重新登录！",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                //swal("注销成功！", "您已经成功注销。", "success");
-                location.href="loginController.do?logout";
-            } else {
-                return false;
-            }
-        });*/
         layer.confirm('您确定要注销吗？', {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
@@ -490,9 +443,6 @@
         storage.removeAll();
         //bootbox.alert( "浏览器缓存清除成功!");
         layer.msg("浏览器缓存清除成功!");
-    }
-    function toJeecgYun(){
-    	window.open("http://yun.jeecg.org","_blank");
     }
 
     $(document).ready(function(){
@@ -529,7 +479,6 @@
                             noticeContent +="&nbsp;"+noticeList[i].noticeTitle + "</a></li></ul></li>";
                         }
                     }
-                    //alert(noticeContent);
                     $("#noticeContent").html(noticeContent);
 
                     //加载公告底部文字

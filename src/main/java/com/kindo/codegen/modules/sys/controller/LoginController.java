@@ -71,4 +71,12 @@ public class LoginController extends BaseController {
 		else
 			return "login/login";
 	}
+	
+	/**
+	 * 首页跳转
+	 */
+	@RequestMapping(params="home")
+	public String home() {
+		return "main/home";
+	}
 }
