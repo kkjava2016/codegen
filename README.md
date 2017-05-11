@@ -2,10 +2,9 @@
 
 ## 平台简介
 
-CodeGen是基于优秀开源项目[Jeecg 3.6.6](http://git.oschina.net/jeecg/jeecg)和[JeeSite 1.2.7](https://github.com/thinkgem/jeesite)，高度整合封装而成的**开源**Java EE快速开发平台。
+CodeGen是基于优秀开源项目[Jeecg 3.6.6](http://git.oschina.net/jeecg/jeecg)和[JeeSite 1.2.7](https://github.com/thinkgem/jeesite)整合封装而成。以Jeecg功能集为模板参照JeeSite框架的精简结构，对其代码进行优化，调整为自己熟悉技术栈。
 
-CodeGen是在Spring Framework基础上搭建的一个Java基础开发平台，以Spring MVC为模型视图控制器，MyBatis为数据访问层，
-Apache Shiro为权限授权层，Ehcahe对常用数据进行缓存，Activit为工作流引擎。
+CodeGen是在Spring Framework基础上搭建，以Spring MVC为模型视图控制器，MyBatis为数据访问层，Shiro为权限授权层，Ehcahe对常用数据进行缓存，Activit为工作流引擎。
 
 ## 内置功能
 
@@ -38,15 +37,4 @@ Apache Shiro为权限授权层，Ehcahe对常用数据进行缓存，Activit为�
 
 2、前端
 
-* JS框架：jQuery 1.9。
-* CSS框架：Twitter Bootstrap 2.3.1（稳定是后台，UI方面根据需求自己升级改造吧）。
-* 客户端验证：JQuery Validation Plugin 1.11。
-* 富文本在线编辑：CKEditor
-* 在线文件管理：CKFinder
-* 动态页签：Jerichotab
-* 手机端框架：Jingle
-* 数据表格：jqGrid
-* 对话框：jQuery jBox
-* 下拉选择框：jQuery Select2
-* 树结构控件：jQuery zTree
-* 日期控件： My97DatePicker
+* JS框架：jQuery & EasyUI。
