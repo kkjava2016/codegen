@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 基础标签
  * 
@@ -14,6 +17,7 @@ import javax.servlet.jsp.JspWriter;
  */
 public class BaseTag extends BaseTagSupport {
 	private static final long serialVersionUID = 986301308588847197L;
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	protected String type = "default";// 加载类型，可以多值（以逗号隔开）
 	protected String cssTheme = "metrole";//H+风格
@@ -35,7 +39,7 @@ public class BaseTag extends BaseTagSupport {
 			
 			writeTagContent(param, out);
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error("BaseTag标签内容展示出错!", e);
 		} finally {
 			if(out!=null){
 				try {
