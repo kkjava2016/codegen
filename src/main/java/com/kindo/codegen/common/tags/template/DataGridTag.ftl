@@ -1,6 +1,8 @@
 <#--
 属性说明:
-
+width,height  	若值为空，则默认"auto"
+grid			根据treegrid属性值定义全局grid值
+queryParams 	根据columnList定义的query是否可查询属性来拼装的属性
 -->
 <#assign width = width!"auto">
 <#assign height = height!"auto">
@@ -27,6 +29,20 @@ columnList 				所有列数据
 columnValueList			值替换数据
 columnStyleList			背景样式
 frozen		0冻结列 1普通列	是否冻结列
+
+输出格式为:
+{
+	field:'',
+	title:'',
+	sortable:true/false,
+	width:0,
+	height:0,
+	align:'',
+	hidden:true/false,
+	formatter:function(value, rec, index){},
+	styler:function(value,rec,index){}
+	....
+}
 -->
 <#macro columns treegrid checkbox columnList columnValueList columnStyleList frozen>
 	<#if checkbox && frozen == 0>
@@ -144,6 +160,7 @@ frozen		0冻结列 1普通列	是否冻结列
 		}<#if column_has_next>,</#if>
 	</#list>
 </#macro>
+<#-- 定义页面主体部分  -->
 <table width="100%" id="${name}" toolbar="#${name}tb"></table>
 <div id="${name}tb" style="padding:3px; height: auto">
 	<#-- 检索区域是否可收缩 -->
