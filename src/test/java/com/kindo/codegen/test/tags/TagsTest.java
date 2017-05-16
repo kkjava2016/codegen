@@ -8,8 +8,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.kindo.codegen.common.tags.BaseTag;
-
-import junit.framework.TestCase;
+import com.kindo.codegen.common.tags.DataGridTag;
 
 /**
  * 标签测试类
@@ -17,13 +16,13 @@ import junit.framework.TestCase;
  * @author liujianzhu
  * @date 2017年5月12日 下午5:55:37
  */
-public class TagsTest extends TestCase {
+public class TagsTest{
 	
 	/**
 	 * BaseTag基础标签
 	 * @throws Exception
 	 */
-	@Test
+	//@Test
 	public void testBaseTag() throws Exception{
 		BaseTag tag = new BaseTag();
 		Writer out = new PrintWriter(System.out);
@@ -33,6 +32,24 @@ public class TagsTest extends TestCase {
 		map.put("types", types);
 		map.put("cssTheme", "Test");
 		tag.writeTagContent(map, out);
+	}
+	
+	@Test
+	public void testDataGridTag() throws Exception {
+		Writer out = new PrintWriter(System.out);
+		//
+		DataGridTag tag = new DataGridTag();
+		tag.setName("userlist");
+		tag.setActionUrl("userController.do?datagrid");
+		tag.setPageSize(10);
+		tag.setPagination(true);
+		tag.setSortName("username");
+		tag.setTreegrid(true);
+		tag.setOnLoadSuccess("onLoadSuccFunc");
+		tag.setOnClick("onClickFunc");
+		tag.setCheckbox(true);
+		//
+		tag.writeTagContent(tag, out);
 	}
 
 }
