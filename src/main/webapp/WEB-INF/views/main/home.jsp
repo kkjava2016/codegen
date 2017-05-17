@@ -21,6 +21,7 @@
 	</div>
 
 	<!-- 全局js -->
+	<script type="text/javascript" src="plug-in/jquery/jquery-1.8.3.min.js"></script>
 	<script src="plug-in/hplus/js/bootstrap.min.js?v=3.3.6"></script>
 </body>
 </html>
