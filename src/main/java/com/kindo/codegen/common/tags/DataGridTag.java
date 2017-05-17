@@ -261,11 +261,15 @@ public class DataGridTag extends BaseTagSupport {
 			String[] items = style.split(",");
 			String text = "";
 			String value = "";
-			for(String item : items) {
-				if(StringUtils.isNotEmpty(item)) {
-					String[] kvs = item.split("_");
-					text += kvs[0] + ",";
-					value += kvs[1] + ",";
+			if(items.length == 1 && items[0].indexOf("_") == -1) {
+				text = items[0];
+			} else {
+				for(String item : items) {
+					if(StringUtils.isNotEmpty(item)) {
+						String[] kvs = item.split("_");
+						text += kvs[0] + ",";
+						value += kvs[1] + ",";
+					}
 				}
 			}
 			setStyleColumn(field, text, value);

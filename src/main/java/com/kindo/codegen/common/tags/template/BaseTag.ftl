@@ -2,7 +2,7 @@
 <#if types?exists && types?size gt 0>
 	<#list types as type>
 		<#if type == "jquery">
-			<script type="text/javascript" src="plug-in/jquery/jquery-1.8.3.js"></script>
+			<script type="text/javascript" src="plug-in/jquery/jquery-1.8.3.min.js"></script>
 			<script type="text/javascript" src="plug-in/jquery/jquery.cookie.js"></script>
 			<script type="text/javascript" src="plug-in/jquery-plugs/storage/jquery.storageapi.min.js" ></script>
 		</#if>
@@ -47,6 +47,7 @@
 			<script type="text/javascript" src="plug-in/tools/curdtools.js"></script>
 			<script type="text/javascript" src="plug-in/tools/easyuiextend.js"></script>
 			<script type="text/javascript" src="plug-in/tools/json2.js" ></script>
+			<script type="text/javascript" src="plug-in/lhgDialog/lhgdialog.min.js?skin=metrole"></script>
 		</#if>
 		<#if type == "toptip">
 			<link rel="stylesheet" href="plug-in/toptip/css/css.css" type="text/css">

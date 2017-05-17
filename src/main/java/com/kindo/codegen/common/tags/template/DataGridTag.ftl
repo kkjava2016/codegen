@@ -49,6 +49,7 @@ frozen		0冻结列 1普通列	是否冻结列
 	{field:'ck',checkbox:'true'}<#if columnList?size gt 0>,</#if>
 	</#if>
 	<#list columnList as column>
+	<#if (column.frozenColumn && frozen == 0) || (!column.frozenColumn && frozen == 1)>
 		<#assign field = column.field>
 		<#if treegrid>
 			<#assign field = column.treefield>
@@ -59,7 +60,7 @@ frozen		0冻结列 1普通列	是否冻结列
 		<#if column.width?exists>,width:${column.width}</#if>
 		<#if column.align?exists>,align:'${column.align}'</#if>
 		<#if column.extendParams?exists>
-			<#-- 扩展属性设置 -->
+			<#-- TODO 扩展属性设置 -->
 		</#if>
 		<#if column.hidden>,hidden:true</#if>
 		<#if !treegrid && column.sortable && field?index_of("_") lte 0 && field != "opt">
@@ -140,13 +141,11 @@ frozen		0冻结列 1普通列	是否冻结列
 					<#assign value = columnStyle.value?split(",")>
 					<#assign text = columnStyle.text?split(",")>
 					,styler:function(value,rec,index){
-						<#if value?length == 0 || value[0] == null || value[0] == "">
-							<#if text?length == 1>
-								<#if text[0]?index_of("(") gt -1>
-								return '${text[0]?replace("(","(value,rec,index")}';
-								<#else>
-								return '${text[0]}';
-								</#if>
+						<#if (value?size == 0 || value[0] == "") && text?size == 1>
+							<#if text[0]?index_of("(") gt -1>
+							return '${text[0]?replace("(","(value,rec,index")}';
+							<#else>
+							return '${text[0]}';
 							</#if>
 						<#else>
 							<#list value as v>
@@ -158,6 +157,7 @@ frozen		0冻结列 1普通列	是否冻结列
 			</#list>
 		</#if>
 		}<#if column_has_next>,</#if>
+	</#if>
 	</#list>
 </#macro>
 <#-- 定义页面主体部分  -->
@@ -229,10 +229,10 @@ frozen		0冻结列 1普通列	是否冻结列
 	</div>
 	</#if>
 	<#-- 设置ToolBar -->
-	<#if tooBarList?exists && toolBarList?size gt 0 && queryParams?exists>
-	<div style="height:30px;" class="datagrid-toolbar">
-	<#else>
+	<#if toolBarList?size == 0 && !queryParams?exists>
 	<div style="height:0px;">
+	<#else>
+	<div style="height:30px;" class="datagrid-toolbar">
 	</#if>
 	<span style="float:left;">
 	<#if toolBarList?exists && toolBarList?size gt 0>
@@ -241,9 +241,9 @@ frozen		0冻结列 1普通列	是否冻结列
 			<#if toolBar.onclick?exists && toolBar.onclick?size gt 0>
 			    onclick="${toolBar.onclick}"
 			<#else>
-                onclick="${tooBar.funname}(
+                onclick="${toolBar.funname}(
 				<#if toolBar.funname == "doSubmit"><#else>'${toolBar.title}',</#if>
-				'${toolBar.url}', '${name}',
+				'${toolBar.url!""}', '${name}',
 				<#if toolBar.width?contains("%")>'${toolBar.width}'<#else>${toolBar.width}</#if>,
 				<#if toolBar.height?contains("%")>'${toolBar.height}'<#else>${toolBar.height}</#if>)"
 			</#if>
